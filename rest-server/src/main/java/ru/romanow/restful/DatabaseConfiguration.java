@@ -1,11 +1,11 @@
 package ru.romanow.restful;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * Created by romanow on 18.10.16
  */
 @Configuration
-@EnableMongoRepositories
-public class MongoConfiguration {}
+@EnableJpaRepositories
+public class DatabaseConfiguration {}

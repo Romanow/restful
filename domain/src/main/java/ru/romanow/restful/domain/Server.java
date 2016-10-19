@@ -2,12 +2,8 @@ package ru.romanow.restful.domain;
 
 import com.google.common.base.MoreObjects;
 import org.hibernate.annotations.Table;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 /**
  * Created by romanow on 18.10.16
@@ -18,7 +14,6 @@ public class Server {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Integer id;
 
     @Column
