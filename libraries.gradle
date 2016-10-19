@@ -1,0 +1,7 @@
+ext {
+    guavaVersion = "19.0"
+    commonsLangVersion = "3.4"
+    findBugsVersion = "3.0.1"
+
+    postgresDriverVersion = "9.4.1211.jre7"
+}
