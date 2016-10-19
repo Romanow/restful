@@ -20,7 +20,7 @@ public class ServerRestController {
     private ServerService serverService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getServer(@PathVariable("id") Integer id) {
+    public ResponseEntity getServer(@PathVariable Integer id) {
         return ResponseEntity.ok(serverService.getById(id));
     }
 
@@ -34,8 +34,14 @@ public class ServerRestController {
         return ResponseEntity.ok(serverService.addServer(serverRequest));
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity editServer(@PathVariable Integer id,
+            @RequestBody ServerRequest serverRequest) {
+        return ResponseEntity.ok(serverService.editServer(id, serverRequest));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteServer(@PathVariable("id") Integer id) {
+    public ResponseEntity deleteServer(@PathVariable Integer id) {
         serverService.deleteServer(id);
         return ResponseEntity.ok().build();
     }

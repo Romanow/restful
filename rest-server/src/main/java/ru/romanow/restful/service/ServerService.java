@@ -2,6 +2,7 @@ package ru.romanow.restful.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.romanow.restful.domain.Purpose;
 import ru.romanow.restful.domain.Server;
 import ru.romanow.restful.repository.ServerRepository;
@@ -9,6 +10,7 @@ import ru.romanow.restful.web.model.ServerRequest;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by romanow on 18.10.16
@@ -19,16 +21,41 @@ public class ServerService {
     @Autowired
     private ServerRepository serverRepository;
 
+    @Transactional(readOnly = true)
     public Server getById(@Nonnull Integer id) {
         return serverRepository.findOne(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Server> findAll() {
         return serverRepository.findAll();
     }
 
-    public Server addServer(ServerRequest serverRequest) {
+    @Transactional
+    public Server addServer(@Nonnull ServerRequest serverRequest) {
         return serverRepository.save(buildServer(serverRequest));
+    }
+
+    @Transactional
+    public void deleteServer(Integer id) {
+        serverRepository.delete(id);
+    }
+
+    @Transactional
+    public Server editServer(Integer id, ServerRequest serverRequest) {
+        Server server = serverRepository.findOne(id);
+        if (server != null) {
+            server.setAddress(Optional.ofNullable(serverRequest.getAddress()).orElse(server.getAddress()));
+            server.setBandwidth(Optional.ofNullable(serverRequest.getBandwidth()).orElse(server.getBandwidth()));
+            server.setLatency(Optional.ofNullable(serverRequest.getLatency()).orElse(server.getLatency()));
+            Purpose purpose = Optional.ofNullable(serverRequest.getPurpose())
+                                      .map(Purpose::find)
+                                      .orElse(server.getPurpose());
+            server.setPurpose(purpose);
+            return serverRepository.save(server);
+        }
+
+        return null;
     }
 
     private Server buildServer(@Nonnull ServerRequest serverRequest) {
@@ -37,9 +64,5 @@ public class ServerService {
                 .setBandwidth(serverRequest.getBandwidth())
                 .setLatency(serverRequest.getLatency())
                 .setPurpose(Purpose.find(serverRequest.getPurpose()));
-    }
-
-    public void deleteServer(Integer id) {
-        serverRepository.delete(id);
     }
 }
