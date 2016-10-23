@@ -43,7 +43,7 @@ project("domain") {
         compile "org.springframework.boot:spring-boot-starter-data-jpa"
         compile "org.springframework.boot:spring-boot-starter-web"
         compile "org.springframework.boot:spring-boot-starter-logging"
-        compile "org.springframework.boot:spring-boot-starter-data-rest"
+        compile "org.springframework.boot:spring-boot-starter-hateoas"
 
         compile "com.google.code.findbugs:jsr305:${findBugsVersion}"
 
@@ -72,6 +72,7 @@ project("hateoas") {
         compile project(":domain")
 
         compile "org.springframework.boot:spring-boot-devtools"
+        compile "org.springframework.boot:spring-boot-starter-data-rest"
 
         compile "org.postgresql:postgresql:${postgresDriverVersion}"
     }

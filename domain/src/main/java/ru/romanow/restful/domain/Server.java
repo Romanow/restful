@@ -1,7 +1,7 @@
 package ru.romanow.restful.domain;
 
 import com.google.common.base.MoreObjects;
-import org.springframework.hateoas.Identifiable;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "server")
 public class Server
-        implements Identifiable<Integer> {
+        extends ResourceSupport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,6 @@ public class Server
 
     @Column
     private Integer bandwidth;
-
-    public Integer getId() {
-        return id;
-    }
 
     public String getAddress() {
         return address;
