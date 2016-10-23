@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanow.restful.domain.Purpose;
 import ru.romanow.restful.domain.Server;
+import ru.romanow.restful.model.ServerRequest;
 import ru.romanow.restful.repository.ServerRepository;
-import ru.romanow.restful.web.model.ServerRequest;
 
 import javax.annotation.Nonnull;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,9 +54,9 @@ public class ServerService {
                                       .orElse(server.getPurpose());
             server.setPurpose(purpose);
             return serverRepository.save(server);
+        } else {
+            throw new EntityNotFoundException("Server not found for id " + id);
         }
-
-        return null;
     }
 
     private Server buildServer(@Nonnull ServerRequest serverRequest) {

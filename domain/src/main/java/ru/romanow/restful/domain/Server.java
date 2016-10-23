@@ -1,7 +1,7 @@
 package ru.romanow.restful.domain;
 
 import com.google.common.base.MoreObjects;
-import org.hibernate.annotations.Table;
+import org.springframework.hateoas.Identifiable;
 
 import javax.persistence.*;
 
@@ -9,8 +9,9 @@ import javax.persistence.*;
  * Created by romanow on 18.10.16
  */
 @Entity
-@Table(appliesTo = "server")
-public class Server {
+@Table(name = "server")
+public class Server
+        implements Identifiable<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

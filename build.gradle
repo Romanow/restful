@@ -41,6 +41,9 @@ project("domain") {
 
     dependencies {
         compile "org.springframework.boot:spring-boot-starter-data-jpa"
+        compile "org.springframework.boot:spring-boot-starter-web"
+        compile "org.springframework.boot:spring-boot-starter-logging"
+        compile "org.springframework.boot:spring-boot-starter-data-rest"
 
         compile "com.google.code.findbugs:jsr305:${findBugsVersion}"
 
@@ -55,12 +58,21 @@ project("rest-server") {
     dependencies {
         compile project(":domain")
 
-        compile "org.springframework.boot:spring-boot-starter-web"
-        compile "org.springframework.boot:spring-boot-starter-logging"
+        compile "org.springframework.boot:spring-boot-devtools"
+        compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+
+        compile "org.postgresql:postgresql:${postgresDriverVersion}"
+    }
+}
+
+project("hateoas") {
+    apply from: '../libraries.gradle'
+
+    dependencies {
+        compile project(":domain")
+
         compile "org.springframework.boot:spring-boot-devtools"
 
         compile "org.postgresql:postgresql:${postgresDriverVersion}"
-
-        testCompile "org.springframework.boot:spring-boot-starter-test"
     }
 }
