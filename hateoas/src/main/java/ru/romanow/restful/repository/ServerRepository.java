@@ -7,6 +7,6 @@ import ru.romanow.restful.domain.Server;
 /**
  * Created by romanow on 18.10.16
  */
-@RepositoryRestResource
+@RepositoryRestResource(path = "/repository")
 public interface ServerRepository
         extends JpaRepository<Server, Integer> {}
