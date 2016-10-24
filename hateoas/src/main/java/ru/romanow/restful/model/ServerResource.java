@@ -1,4 +1,4 @@
-package ru.romanow.restful.web.model;
+package ru.romanow.restful.model;
 
 import com.google.common.base.MoreObjects;
 import org.springframework.hateoas.ResourceSupport;

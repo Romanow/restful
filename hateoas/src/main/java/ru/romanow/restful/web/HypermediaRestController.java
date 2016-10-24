@@ -1,15 +1,14 @@
 package ru.romanow.restful.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.romanow.restful.domain.Server;
-import ru.romanow.restful.web.model.ServerResource;
-import ru.romanow.restful.web.service.ServerService;
+import ru.romanow.restful.model.ServerResource;
+import ru.romanow.restful.service.ServerService;
 
 import java.util.List;
 
@@ -24,9 +23,6 @@ public class HypermediaRestController {
 
     @Autowired
     private ServerService serverService;
-
-    @Autowired
-    private EntityLinks entityLinks;
 
     @GetMapping("/{id}")
     public ResponseEntity<ServerResource> getServer(@PathVariable Integer id) {
