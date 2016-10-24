@@ -24,7 +24,11 @@ public class ServerService {
 
     @Transactional(readOnly = true)
     public Server getById(@Nonnull Integer id) {
-        return serverRepository.findOne(id);
+        Server server = serverRepository.findOne(id);
+        if (server == null) {
+            throw new EntityNotFoundException("Server not found for id " + id);
+        }
+        return server;
     }
 
     @Transactional(readOnly = true)

@@ -6,10 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.romanow.restful.domain.Server;
 import ru.romanow.restful.model.ErrorResponse;
-import ru.romanow.restful.service.ServerService;
 import ru.romanow.restful.model.ServerRequest;
+import ru.romanow.restful.service.ServerService;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 /**
@@ -30,11 +29,7 @@ public class ServerRestController {
     })
     @GetMapping("/{id}")
     public ResponseEntity getServer(@ApiParam @PathVariable Integer id) {
-        Server server = serverService.getById(id);
-        if (server == null) {
-            throw new EntityNotFoundException("Server not found for id " + id);
-        }
-        return ResponseEntity.ok(server);
+        return ResponseEntity.ok(serverService.getById(id));
     }
 
     @ApiOperation("Find all entities")

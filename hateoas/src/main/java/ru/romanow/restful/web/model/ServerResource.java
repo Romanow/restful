@@ -1,41 +1,35 @@
-package ru.romanow.restful.domain;
+package ru.romanow.restful.web.model;
 
 import com.google.common.base.MoreObjects;
-
-import javax.persistence.*;
+import org.springframework.hateoas.ResourceSupport;
+import ru.romanow.restful.domain.Purpose;
+import ru.romanow.restful.domain.Server;
 
 /**
- * Created by romanow on 18.10.16
+ * Created by romanow on 24.10.16
  */
-@Entity
-@Table(name = "server")
-public class Server {
+public class ServerResource
+        extends ResourceSupport {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column
     private String address;
-
-    @Column
     private Purpose purpose;
-
-    @Column
     private Integer latency;
-
-    @Column
     private Integer bandwidth;
 
-    public Integer getId() {
-        return id;
+    public ServerResource() {}
+
+    public ServerResource(Server server) {
+        this.address = server.getAddress();
+        this.purpose = server.getPurpose();
+        this.latency = server.getLatency();
+        this.bandwidth = server.getBandwidth();
     }
 
     public String getAddress() {
         return address;
     }
 
-    public Server setAddress(String address) {
+    public ServerResource setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -44,7 +38,7 @@ public class Server {
         return purpose;
     }
 
-    public Server setPurpose(Purpose purpose) {
+    public ServerResource setPurpose(Purpose purpose) {
         this.purpose = purpose;
         return this;
     }
@@ -53,7 +47,7 @@ public class Server {
         return latency;
     }
 
-    public Server setLatency(Integer latency) {
+    public ServerResource setLatency(Integer latency) {
         this.latency = latency;
         return this;
     }
@@ -62,8 +56,7 @@ public class Server {
         return bandwidth;
     }
 
-
-    public Server setBandwidth(Integer bandwidth) {
+    public ServerResource setBandwidth(Integer bandwidth) {
         this.bandwidth = bandwidth;
         return this;
     }

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Created by romanow on 19.10.16
  */
-@ControllerAdvice(annotations = RestController.class)
+@ControllerAdvice
 public class ExceptionMapper {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionMapper.class);
 
