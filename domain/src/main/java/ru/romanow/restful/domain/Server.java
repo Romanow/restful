@@ -27,6 +27,10 @@ public class Server {
     @Column
     private Integer bandwidth;
 
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
+
     public Integer getId() {
         return id;
     }
@@ -65,6 +69,15 @@ public class Server {
 
     public Server setBandwidth(Integer bandwidth) {
         this.bandwidth = bandwidth;
+        return this;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public Server setState(State state) {
+        this.state = state;
         return this;
     }
 

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanow.restful.domain.Server;
-import ru.romanow.restful.repository.ServerRepository;
 import ru.romanow.restful.model.ServerResource;
+import ru.romanow.restful.repository.ServerRepository;
 
 import javax.annotation.Nonnull;
 import javax.persistence.EntityNotFoundException;

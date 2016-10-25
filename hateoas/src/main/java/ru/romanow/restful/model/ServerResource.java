@@ -5,6 +5,7 @@ import org.springframework.hateoas.ResourceSupport;
 import ru.romanow.restful.domain.Purpose;
 import ru.romanow.restful.domain.Server;
 
+
 /**
  * Created by romanow on 24.10.16
  */
