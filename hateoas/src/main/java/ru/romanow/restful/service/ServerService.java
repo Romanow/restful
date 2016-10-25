@@ -20,17 +20,23 @@ public class ServerService {
     @Autowired
     private ServerRepository serverRepository;
 
+    private ServerResourceAssembler resourceAssembler;
+
+    public ServerService() {
+        this.resourceAssembler = new ServerResourceAssembler();
+    }
+
     @Transactional(readOnly = true)
     public ServerResource getById(@Nonnull Integer id) {
         Server server = serverRepository.findOne(id);
         if (server == null) {
             throw new EntityNotFoundException("Server not found for id " + id);
         }
-        return new ServerResource(server);
+        return resourceAssembler.toResource(server);
     }
 
     @Transactional(readOnly = true)
-    public List<Server> findAll() {
-        return serverRepository.findAll();
+    public List<ServerResource> findAll() {
+        return resourceAssembler.toResources(serverRepository.findAll());
     }
 }

@@ -22,7 +22,7 @@ public class State {
     @Column
     private String country;
 
-    @OneToMany
+    @OneToMany(mappedBy = "state")
     public List<Server> servers;
 
     public Integer getId() {
