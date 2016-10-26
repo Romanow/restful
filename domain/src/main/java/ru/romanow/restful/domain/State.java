@@ -22,7 +22,7 @@ public class State {
     @Column
     private String country;
 
-    @OneToMany(mappedBy = "state")
+    @OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
     public List<Server> servers;
 
     public Integer getId() {

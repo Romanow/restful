@@ -25,7 +25,7 @@ public class ServerResource
         this.purpose = server.getPurpose();
         this.latency = server.getLatency();
         this.bandwidth = server.getBandwidth();
-        this.stateId = server.getState().getId();
+        this.stateId = server.getState() != null ? server.getState().getId() : null;
     }
 
     public String getAddress() {

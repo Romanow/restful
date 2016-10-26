@@ -10,6 +10,8 @@ import ru.romanow.restful.model.ServerRequest;
 import ru.romanow.restful.service.ServerService;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 /**
  * Created by romanow on 18.10.16
@@ -28,22 +30,23 @@ public class ServerRestController {
             @ApiResponse(code = 404, message = "Server not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity getServer(@ApiParam @PathVariable Integer id) {
+    public ResponseEntity<Server> getServer(@ApiParam @PathVariable Integer id) {
         return ResponseEntity.ok(serverService.getById(id));
     }
 
     @ApiOperation("Find all entities")
     @ApiResponse(code = 200, message = "OK", response = Server.class)
     @GetMapping
-    public ResponseEntity getServers() {
+    public ResponseEntity<List<Server>> getServers() {
         return ResponseEntity.ok(serverService.findAll());
     }
 
     @ApiOperation("Save new entity")
-    @ApiResponse(code = 200, message = "OK", response = Server.class)
+    @ApiResponse(code = 201, message = "Created", response = Server.class)
     @PutMapping
     public ResponseEntity addServer(@ApiParam @Valid @RequestBody ServerRequest serverRequest) {
-        return ResponseEntity.ok(serverService.addServer(serverRequest));
+        Server server = serverService.addServer(serverRequest);
+        return ResponseEntity.created(URI.create("/" + server.getId())).build();
     }
 
     @ApiOperation("Edit entity by Id")
@@ -52,16 +55,16 @@ public class ServerRestController {
             @ApiResponse(code = 404, message = "Server not found", response = ErrorResponse.class)
     })
     @PatchMapping("/{id}")
-    public ResponseEntity editServer(@ApiParam @PathVariable Integer id,
-                                     @ApiParam @RequestBody ServerRequest serverRequest) {
+    public ResponseEntity<Server> editServer(@ApiParam @PathVariable Integer id,
+                                             @ApiParam @RequestBody ServerRequest serverRequest) {
         return ResponseEntity.ok(serverService.editServer(id, serverRequest));
     }
 
     @ApiOperation("Delete entity by Id")
-    @ApiResponse(code = 200, message = "OK")
+    @ApiResponse(code = 202, message = "OK")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteServer(@ApiParam @PathVariable Integer id) {
         serverService.deleteServer(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

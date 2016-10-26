@@ -8,5 +8,5 @@ import ru.romanow.restful.domain.State;
  * Created by romanow on 25.10.16
  */
 @RepositoryRestResource(path = "/state")
-public interface AddressRepository
+public interface StateRepository
         extends CrudRepository<State, Integer> {}
