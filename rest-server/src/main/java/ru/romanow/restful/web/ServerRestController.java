@@ -46,7 +46,7 @@ public class ServerRestController {
     @PostMapping
     public ResponseEntity addServer(@ApiParam @Valid @RequestBody ServerRequest serverRequest) {
         Server server = serverService.addServer(serverRequest);
-        return ResponseEntity.created(URI.create("/" + server.getId())).build();
+        return ResponseEntity.created(URI.create("/server/" + server.getId())).build();
     }
 
     @ApiOperation("Edit entity by Id")
