@@ -9,6 +9,7 @@ import ru.romanow.restful.model.ErrorResponse;
 import ru.romanow.restful.model.ServerRequest;
 import ru.romanow.restful.service.ServerService;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ServerRestController {
 
     @ApiOperation("Save new entity")
     @ApiResponse(code = 201, message = "Created", response = Server.class)
-    @PutMapping
+    @PostConstruct
     public ResponseEntity addServer(@ApiParam @Valid @RequestBody ServerRequest serverRequest) {
         Server server = serverService.addServer(serverRequest);
         return ResponseEntity.created(URI.create("/" + server.getId())).build();
