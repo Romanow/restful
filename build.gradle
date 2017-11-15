@@ -15,7 +15,7 @@ task wrapper(type: Wrapper) {
 configure(subprojects) { project ->
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'spring-boot'
+    apply plugin: 'org.springframework.boot'
     apply plugin: "io.spring.dependency-management"
     apply from: '../libraries.gradle'
 
@@ -44,6 +44,16 @@ configure(subprojects) { project ->
         }
     }
 
+    jar {
+        archiveName =  "${project.name}.jar"
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "io.spring.platform:platform-bom:${springPlatformVersion}"
+        }
+    }
+
     repositories {
         mavenCentral()
     }
@@ -61,10 +71,11 @@ project("domain") {
         compile "org.springframework.boot:spring-boot-starter-hateoas"
         compile "org.springframework.data:spring-data-rest-hal-browser"
 
-        compile "com.google.code.findbugs:jsr305:${findBugsVersion}"
+        compile "com.google.guava:guava"
+        compile "org.apache.commons:commons-lang3"
 
-        compile "com.google.guava:guava:${guavaVersion}"
-        compile "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        compile "org.projectlombok:lombok:${lombokVersion}"
+        compile "com.google.code.findbugs:jsr305:${findBugsVersion}"
     }
 }
 
@@ -74,7 +85,9 @@ project("rest-server") {
     dependencies {
         compile project(":domain")
 
+        compile "org.postgresql:postgresql"
         compile "org.springframework.boot:spring-boot-devtools"
+
         compile "io.springfox:springfox-swagger2:${swaggerVersion}"
     }
 }

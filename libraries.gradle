@@ -3,5 +3,6 @@ ext {
     commonsLangVersion = "3.4"
     findBugsVersion = "3.0.1"
     swaggerVersion = "2.6.0"
+    lombokVersion = "1.16.10"
     hibernateVersion = "5.2.11"
 }

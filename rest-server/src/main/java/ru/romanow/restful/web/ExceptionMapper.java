@@ -40,7 +40,7 @@ public class ExceptionMapper {
         return new ErrorResponse(exception.getMessage());
     }
 
-    public String prepareValidationErrors(List<FieldError> errors) {
+    private String prepareValidationErrors(List<FieldError> errors) {
         return errors.stream()
                      .map(err -> "Field " + err.getField() + " has wrong value: [" + err.getDefaultMessage() + "]")
                      .collect(Collectors.joining(";"));

@@ -1,5 +1,6 @@
 package ru.romanow.restful.web;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/server")
+@AllArgsConstructor
 public class ServerRestController {
-
-    @Autowired
-    private ServerService serverService;
+    private final ServerService serverService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ServerResource> getServer(@PathVariable Integer id) {
