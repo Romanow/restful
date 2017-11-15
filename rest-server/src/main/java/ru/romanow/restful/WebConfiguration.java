@@ -23,6 +23,6 @@ public class WebConfiguration
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/v2/api-docs")
                 .allowedMethods("GET")
-                .allowedOrigins("http://swagger.local");
+                .allowedOrigins("*");
     }
 }
