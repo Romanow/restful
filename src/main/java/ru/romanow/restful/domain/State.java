@@ -1,6 +1,7 @@
 package ru.romanow.restful.domain;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -28,4 +29,26 @@ public class State {
 
     @OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
     public List<Server> servers;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        State state = (State) o;
+        return Objects.equal(city, state.city) &&
+                Objects.equal(country, state.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(city, country);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("city", city)
+                .add("country", country)
+                .toString();
+    }
 }

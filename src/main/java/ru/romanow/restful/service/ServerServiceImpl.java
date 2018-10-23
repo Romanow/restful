@@ -34,7 +34,7 @@ public class ServerServiceImpl
     @Override
     @Transactional(readOnly = true)
     public ServerResponse getById(@Nonnull Integer serverId) {
-        return serverRepository.findOne(serverId)
+        return serverRepository.findById(serverId)
                 .map(ServerResponse::new)
                 .orElseThrow(() -> new EntityNotFoundException("Server not found for serverId " + serverId));
     }
@@ -65,15 +65,16 @@ public class ServerServiceImpl
     @Override
     @Transactional
     public void deleteServer(@Nonnull Integer serverId) {
-        serverRepository.delete(serverId);
+        serverRepository.deleteById(serverId);
     }
 
     @Nonnull
     @Override
     @Transactional
     public ServerResponse editServer(@Nonnull Integer serverId, @Nonnull ServerRequest serverRequest) {
-        final Optional<Server> server = serverRepository.findOne(serverId);
-        if (server.isPresent()) {
+        final Optional<Server> byId = serverRepository.findById(serverId);
+        if (byId.isPresent()) {
+            Server server = byId.get();
             server.setAddress(ofNullable(serverRequest.getAddress()).orElse(server.getAddress()));
             server.setBandwidth(ofNullable(serverRequest.getBandwidth()).orElse(server.getBandwidth()));
             server.setLatency(ofNullable(serverRequest.getLatency()).orElse(server.getLatency()));
