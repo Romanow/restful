@@ -41,7 +41,7 @@ public class ServerRestController {
             @ApiResponse(code = 200, message = "OK", response = ServerResponse.class),
             @ApiResponse(code = 404, message = "Server not found", response = ErrorResponse.class)
     })
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/state")
     public StateResponse getServerState(@PathVariable Integer id) {
         return serverService.getServerState(id);
     }

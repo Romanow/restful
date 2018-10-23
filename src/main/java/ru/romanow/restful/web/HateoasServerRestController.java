@@ -27,7 +27,7 @@ public class HateoasServerRestController {
         return new ServerListResource(serverService.findAllServers());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/state")
     public StateResource getServerState(@PathVariable Integer id) {
         return new StateResource(serverService.getServerState(id));
     }
