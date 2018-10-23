@@ -25,6 +25,7 @@ public class Server {
     private String address;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Purpose purpose;
 
     @Column

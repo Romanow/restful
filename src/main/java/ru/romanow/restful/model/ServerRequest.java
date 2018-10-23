@@ -1,6 +1,7 @@
 package ru.romanow.restful.model;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -8,26 +9,23 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Accessors(chain = true)
 public class ServerRequest {
 
-    @NotNull
+    @NotEmpty(message = "{field.not.empty}")
     private String address;
 
-    @NotNull
+    @NotEmpty(message = "{field.not.empty}")
     private String purpose;
 
-    @Min(0)
-    @Max(100)
+    @Min(value = 0, message = "{field.min}")
+    @Max(value = 100, message = "{field.max}")
     private Integer latency;
 
-    @Min(0)
-    @Max(10_000_000)
+    @Min(value = 0, message = "{field.min}")
+    @Max(value = 10_000_000, message = "{field.max}")
     private Integer bandwidth;
 
-    @NotEmpty
-    private String country;
-
-    @NotEmpty
-    private String city;
-
+    @NotNull(message = "{field.not.null}")
+    private Integer stateId;
 }
