@@ -1,6 +1,1 @@
 rootProject.name = 'restful'
-
-include 'domain'
-include 'rest-server'
-include 'hateoas'
-

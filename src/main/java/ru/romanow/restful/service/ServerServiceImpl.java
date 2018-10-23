@@ -3,14 +3,13 @@ package ru.romanow.restful.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import ru.romanow.restful.domain.Purpose;
 import ru.romanow.restful.domain.Server;
 import ru.romanow.restful.domain.State;
 import ru.romanow.restful.repository.ServerRepository;
 import ru.romanow.restful.repository.StateRepository;
-import ru.romanow.restful.web.model.ServerRequest;
-import ru.romanow.restful.web.model.ServerResponse;
+import ru.romanow.restful.model.ServerRequest;
+import ru.romanow.restful.model.ServerResponse;
 
 import javax.annotation.Nonnull;
 import javax.persistence.EntityNotFoundException;
@@ -35,11 +34,9 @@ public class ServerServiceImpl
     @Override
     @Transactional(readOnly = true)
     public ServerResponse getById(@Nonnull Integer serverId) {
-        Server server = serverRepository.findOne(serverId);
-        if (server == null) {
-            throw new EntityNotFoundException("Server not found for serverId " + serverId);
-        }
-        return new ServerResponse(server);
+        return serverRepository.findOne(serverId)
+                .map(ServerResponse::new)
+                .orElseThrow(() -> new EntityNotFoundException("Server not found for serverId " + serverId));
     }
 
     @Nonnull
@@ -75,8 +72,8 @@ public class ServerServiceImpl
     @Override
     @Transactional
     public ServerResponse editServer(@Nonnull Integer serverId, @Nonnull ServerRequest serverRequest) {
-        Server server = serverRepository.findOne(serverId);
-        if (server != null) {
+        final Optional<Server> server = serverRepository.findOne(serverId);
+        if (server.isPresent()) {
             server.setAddress(ofNullable(serverRequest.getAddress()).orElse(server.getAddress()));
             server.setBandwidth(ofNullable(serverRequest.getBandwidth()).orElse(server.getBandwidth()));
             server.setLatency(ofNullable(serverRequest.getLatency()).orElse(server.getLatency()));

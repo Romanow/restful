@@ -1,7 +1,6 @@
 package ru.romanow.restful.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.MoreObjects;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -34,6 +33,6 @@ public class Server {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id")
+    @JoinColumn(name = "state_id", foreignKey = @ForeignKey(name = "fk_server_state"))
     private State state;
 }

@@ -2,15 +2,14 @@ package ru.romanow.restful.web;
 
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.romanow.restful.domain.Server;
 import ru.romanow.restful.model.ErrorResponse;
 import ru.romanow.restful.service.ServerService;
-import ru.romanow.restful.web.model.ServerRequest;
-import ru.romanow.restful.web.model.ServerResponse;
+import ru.romanow.restful.model.ServerRequest;
+import ru.romanow.restful.model.ServerResponse;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -23,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/server")
 @AllArgsConstructor
-public class ServerRestController {
+public class RestApiController {
     private final ServerService serverService;
 
     @ApiOperation("Get entity by Id")
