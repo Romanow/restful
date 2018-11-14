@@ -50,7 +50,8 @@ dependencies {
     compile "com.google.guava:guava:${guavaVersion}"
     compile "org.postgresql:postgresql"
     compile "org.apache.commons:commons-lang3"
+    compile "javax.xml.bind:jaxb-api"
 
-    compile "org.projectlombok:lombok"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compile "com.google.code.findbugs:jsr305:${findBugsVersion}"
 }
