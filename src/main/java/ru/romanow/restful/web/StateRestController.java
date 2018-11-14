@@ -1,9 +1,13 @@
 package ru.romanow.restful.web;
 
+import com.google.gson.Gson;
 import io.swagger.annotations.*;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.romanow.restful.domain.Server;
 import ru.romanow.restful.model.ErrorResponse;
@@ -15,13 +19,15 @@ import ru.romanow.restful.service.StateService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Api("State API")
 @RestController
 @RequestMapping("/api/state")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StateRestController {
     private final StateService stateService;
+    private final Gson gson = new Gson();
 
     @ApiOperation("Get state by Id")
     @ApiResponses({
@@ -29,15 +35,23 @@ public class StateRestController {
             @ApiResponse(code = 404, message = "State not found", response = ErrorResponse.class)
     })
     @GetMapping("/{id}")
-    public StateResponse getState(@ApiParam @PathVariable Integer id) {
-        return stateService.getStateById(id);
+    public ResponseEntity<StateResponse> getState(@ApiParam @PathVariable Integer id) {
+        return ResponseEntity
+                .ok()
+                .cacheControl(CacheControl.noCache())
+                .body(stateService.getStateById(id));
     }
 
     @ApiOperation("Find all states")
     @ApiResponse(code = 200, message = "OK", response = ServerResponse.class, responseContainer = "list")
     @GetMapping
-    public List<StateResponse> getStates() {
-        return stateService.findAllStates();
+    public ResponseEntity<List<StateResponse>> getStates() {
+        final List<StateResponse> result = stateService.findAllStates();
+        return ResponseEntity
+                .ok()
+                .cacheControl(CacheControl.maxAge(1, TimeUnit.MINUTES))
+                .eTag(DigestUtils.md5DigestAsHex(gson.toJson(result).getBytes()))
+                .body(result);
     }
 
     @ApiOperation("Save new state")
@@ -60,7 +74,7 @@ public class StateRestController {
     })
     @PatchMapping("/{id}")
     public StateResponse editServer(@ApiParam @PathVariable Integer id,
-                                     @ApiParam @RequestBody StateRequest stateRequest) {
+                                    @ApiParam @RequestBody StateRequest stateRequest) {
         return stateService.editState(id, stateRequest);
     }
 
