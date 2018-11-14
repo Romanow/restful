@@ -16,6 +16,9 @@ public interface ServerService {
     List<ServerResponse> findAllServers();
 
     @Nonnull
+    List<ServerResponse> findServersByAddress(@Nonnull String address);
+
+    @Nonnull
     Integer addServer(@Nonnull ServerRequest serverRequest);
 
     void deleteServer(@Nonnull Integer id);

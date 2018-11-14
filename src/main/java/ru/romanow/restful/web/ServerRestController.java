@@ -2,6 +2,12 @@ package ru.romanow.restful.web;
 
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +28,14 @@ import java.util.List;
 @Api("Server API")
 @RestController
 @RequestMapping("/api/server")
-@AllArgsConstructor
 public class ServerRestController {
-    private final ServerService serverService;
+    private static final Logger logger = LoggerFactory.getLogger(ServerRestController.class);
+
+    @Autowired
+    private ServerService serverService;
+
+    @Value("${server.port}")
+    private String port;
 
     @ApiOperation("Get server by Id")
     @ApiResponses({
@@ -33,6 +44,7 @@ public class ServerRestController {
     })
     @GetMapping("/{id}")
     public ServerResponse getServer(@ApiParam @PathVariable Integer id) {
+        logger.info("Request to localhost:{}/{}", port, id);
         return serverService.getServerById(id);
     }
 
@@ -50,7 +62,15 @@ public class ServerRestController {
     @ApiResponse(code = 200, message = "OK", response = ServerResponse.class, responseContainer = "list")
     @GetMapping
     public List<ServerResponse> getServers() {
+        logger.info("Request to localhost:{}", port);
         return serverService.findAllServers();
+    }
+
+    @ApiOperation("Find servers by address")
+    @ApiResponse(code = 200, message = "OK", response = ServerResponse.class, responseContainer = "list")
+    @GetMapping(params = "address")
+    public List<ServerResponse> findServersByAddress(@RequestParam String address) {
+        return serverService.findServersByAddress(address);
     }
 
     @ApiOperation("Save new server")
@@ -62,7 +82,7 @@ public class ServerRestController {
     @PostMapping
     public void addServer(@ApiParam @Valid @RequestBody ServerRequest serverRequest, HttpServletResponse response) {
         Integer id = serverService.addServer(serverRequest);
-        response.setHeader(HttpHeaders.LOCATION, "/state/" + id);
+        response.setHeader(HttpHeaders.LOCATION, "/server/" + id);
     }
 
     @ApiOperation("Edit server by Id")

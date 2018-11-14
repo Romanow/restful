@@ -54,6 +54,17 @@ public class ServerServiceImpl
     @Nonnull
     @Override
     @Transactional
+    public List<ServerResponse> findServersByAddress(@Nonnull String address) {
+        return serverRepository
+                .findServersByAddress(address)
+                .stream()
+                .map(this::buildServerResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Nonnull
+    @Override
+    @Transactional
     public Integer addServer(@Nonnull ServerRequest serverRequest) {
         Server server = new Server()
                 .setAddress(serverRequest.getAddress())
