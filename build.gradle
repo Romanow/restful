@@ -7,10 +7,6 @@ buildscript {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = "4.10"
-}
-
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -20,8 +16,8 @@ apply from: 'libraries.gradle'
 buildDir = "build"
 group 'ru.romanow.restful'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 idea {
     module {
@@ -35,22 +31,27 @@ repositories {
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-hateoas"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-hateoas"
     
-    compile "org.postgresql:postgresql"
-    compile "org.flywaydb:flyway-core"
+    implementation "org.postgresql:postgresql"
+    implementation "org.flywaydb:flyway-core"
 
-    compile "io.swagger:swagger-annotations:${swaggerVersion}"
-    compile "io.springfox:springfox-swagger2:${swaggerSpringVersion}"
+    implementation "io.swagger:swagger-annotations:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger2:${swaggerSpringVersion}"
 
-    compile "com.google.guava:guava:${guavaVersion}"
-    compile "org.postgresql:postgresql"
-    compile "org.apache.commons:commons-lang3"
+    implementation "com.google.guava:guava:${guavaVersion}"
+    implementation "org.postgresql:postgresql"
+    implementation "org.apache.commons:commons-lang3"
 
-    compileOnly "org.projectlombok:lombok"
-    compile "com.google.code.findbugs:jsr305:${findBugsVersion}"
+    implementation "com.google.code.findbugs:jsr305:${findBugsVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+bootJar {
+    archiveFileName = "${project.name}.jar"
 }
