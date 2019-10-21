@@ -48,6 +48,7 @@ dependencies {
     implementation "org.postgresql:postgresql"
     implementation "org.apache.commons:commons-lang3"
     implementation "javax.xml.bind:jaxb-api"
+    implementation "org.glassfish.jaxb:jaxb-runtime"
 
     compileOnly "com.google.code.findbugs:jsr305:${findBugsVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"

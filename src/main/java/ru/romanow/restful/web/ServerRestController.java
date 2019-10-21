@@ -22,9 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by romanow on 18.10.16
- */
 @Api("Server API")
 @RestController
 @RequestMapping("/api/server")

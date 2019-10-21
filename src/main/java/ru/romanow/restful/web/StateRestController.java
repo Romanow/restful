@@ -3,17 +3,11 @@ package ru.romanow.restful.web;
 import com.google.gson.Gson;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.romanow.restful.domain.Server;
-import ru.romanow.restful.model.ErrorResponse;
-import ru.romanow.restful.model.ServerResponse;
-import ru.romanow.restful.model.StateRequest;
-import ru.romanow.restful.model.StateResponse;
+import ru.romanow.restful.model.*;
 import ru.romanow.restful.service.StateService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +28,7 @@ public class StateRestController {
             @ApiResponse(code = 200, message = "OK", response = ServerResponse.class),
             @ApiResponse(code = 404, message = "State not found", response = ErrorResponse.class)
     })
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
     public ResponseEntity<StateResponse> getState(@ApiParam @PathVariable Integer id) {
         return ResponseEntity
                 .ok()
@@ -44,14 +38,14 @@ public class StateRestController {
 
     @ApiOperation("Find all states")
     @ApiResponse(code = 200, message = "OK", response = ServerResponse.class, responseContainer = "list")
-    @GetMapping
-    public ResponseEntity<List<StateResponse>> getStates() {
-        final List<StateResponse> result = stateService.findAllStates();
+    @GetMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+    public ResponseEntity<StateListResponse> getStates() {
+        final List<StateResponse> list = stateService.findAllStates();
         return ResponseEntity
                 .ok()
                 .cacheControl(CacheControl.maxAge(1, TimeUnit.MINUTES))
-                .eTag(DigestUtils.md5DigestAsHex(gson.toJson(result).getBytes()))
-                .body(result);
+                .eTag(DigestUtils.md5DigestAsHex(gson.toJson(list).getBytes()))
+                .body(new StateListResponse(list));
     }
 
     @ApiOperation("Save new state")
@@ -61,7 +55,8 @@ public class StateRestController {
             @ApiResponse(code = 404, message = "State not found", response = ErrorResponse.class)
     })
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
     public void addServer(@ApiParam @Valid @RequestBody StateRequest stateRequest, HttpServletResponse response) {
         Integer stateId = stateService.addState(stateRequest);
         response.setHeader(HttpHeaders.LOCATION, "/state/" + stateId);
@@ -72,7 +67,8 @@ public class StateRestController {
             @ApiResponse(code = 200, message = "OK", response = Server.class),
             @ApiResponse(code = 404, message = "State not found", response = ErrorResponse.class)
     })
-    @PatchMapping("/{id}")
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
     public StateResponse editServer(@ApiParam @PathVariable Integer id,
                                     @ApiParam @RequestBody StateRequest stateRequest) {
         return stateService.editState(id, stateRequest);

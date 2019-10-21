@@ -8,9 +8,6 @@ import ru.romanow.restful.domain.Server;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by romanow on 18.10.16
- */
 public interface ServerRepository
         extends JpaRepository<Server, Integer>,
                 ServerRepositoryCustom {}

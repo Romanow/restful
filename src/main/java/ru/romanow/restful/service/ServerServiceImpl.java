@@ -21,9 +21,6 @@ import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 import static ru.romanow.restful.domain.Purpose.find;
 
-/**
- * Created by romanow on 18.10.16
- */
 @Service
 @AllArgsConstructor
 public class ServerServiceImpl

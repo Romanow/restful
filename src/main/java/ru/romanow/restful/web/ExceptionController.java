@@ -12,16 +12,13 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by romanow on 19.10.16
- */
-@ControllerAdvice(annotations = RestController.class)
-public class ExceptionMapper {
-    private static final Logger logger = LoggerFactory.getLogger(ExceptionMapper.class);
+@RestControllerAdvice(annotations = RestController.class)
+public class ExceptionController {
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public @ResponseBody ErrorResponse handleBadRequest(MethodArgumentNotValidException exception) {
+    public ErrorResponse handleBadRequest(MethodArgumentNotValidException exception) {
         String validationErrors = prepareValidationErrors(exception.getBindingResult().getFieldErrors());
         logger.warn("Bad Request: {}", validationErrors);
         return new ErrorResponse(validationErrors);
@@ -29,13 +26,13 @@ public class ExceptionMapper {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public @ResponseBody ErrorResponse handleNotFound(EntityNotFoundException exception) {
+    public ErrorResponse handleNotFound(EntityNotFoundException exception) {
         return new ErrorResponse(exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public @ResponseBody ErrorResponse handleException(Exception exception) {
+    public ErrorResponse handleException(Exception exception) {
         logger.error("", exception);
         return new ErrorResponse(exception.getMessage());
     }

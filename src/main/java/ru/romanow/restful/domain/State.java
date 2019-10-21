@@ -8,9 +8,6 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by romanow on 25.10.16
- */
 @Data
 @Accessors(chain = true)
 @Entity

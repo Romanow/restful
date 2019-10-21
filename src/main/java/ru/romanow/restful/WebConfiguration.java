@@ -10,9 +10,6 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-/**
- * Created by romanow on 19.10.16
- */
 @Configuration
 public class WebConfiguration
         extends WebMvcConfigurationSupport {
