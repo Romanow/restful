@@ -42,7 +42,7 @@ dependencies {
     implementation "org.glassfish.jaxb:jaxb-runtime"
 
     compileOnly "com.google.code.findbugs:jsr305:${findBugsVersion}"
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
