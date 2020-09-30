@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class ExceptionController {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 
-    @ApiResponse(description = "Method argument not valid")
+    @ApiResponse(responseCode = "400", description = "Method argument not valid")
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handleBadRequest(MethodArgumentNotValidException exception) {
@@ -29,14 +29,14 @@ public class ExceptionController {
         return new ErrorResponse(validationErrors);
     }
 
-    @ApiResponse(description = "Entity not found")
+    @ApiResponse(responseCode = "404", description = "Entity not found")
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     public ErrorResponse handleNotFound(EntityNotFoundException exception) {
         return new ErrorResponse(exception.getMessage());
     }
 
-    @ApiResponse(description = "General server error")
+    @ApiResponse(responseCode = "500", description = "General server error")
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleException(Exception exception) {

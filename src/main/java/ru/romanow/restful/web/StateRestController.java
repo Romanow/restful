@@ -31,7 +31,7 @@ public class StateRestController {
     private final Gson gson = new Gson();
 
     @Operation(description = "Get state by Id")
-    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml" })
     public ResponseEntity<StateResponse> getState(@PathVariable Integer id) {
         return ResponseEntity
                 .ok()
@@ -40,7 +40,7 @@ public class StateRestController {
     }
 
     @Operation(description = "Find all states")
-    @GetMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(produces = { "application/json", "application/xml" })
     public ResponseEntity<StateListResponse> getStates() {
         final List<StateResponse> list = stateService.findAllStates();
         return ResponseEntity
@@ -52,9 +52,8 @@ public class StateRestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(description = "Save new state")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<Void> addServer(@Valid @RequestBody StateRequest stateRequest, HttpServletResponse response) {
+    @PostMapping(consumes = "application/json", produces = { "application/json", "application/xml" })
+    public ResponseEntity<Void> addServer(@Valid @RequestBody StateRequest stateRequest) {
         final Integer id = stateService.addState(stateRequest);
         return ResponseEntity
                 .created(
@@ -67,8 +66,7 @@ public class StateRestController {
 
 
     @Operation(description = "Edit state by Id")
-    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PatchMapping(value = "/{id}", consumes = "application/json", produces = { "application/json", "application/xml" })
     public StateResponse editServer(@PathVariable Integer id,
                                     @RequestBody StateRequest stateRequest) {
         return stateService.editState(id, stateRequest);
