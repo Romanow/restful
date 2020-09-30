@@ -49,7 +49,7 @@ java -jar build/libs/restful.jar --server.port=8081
 java -jar build/libs/restful.jar --server.port=8082
 ```
 Конфигурация nginx:
-```json
+```
 upstream api {
  server 127.0.0.1:8081 max_fails=3 weight=5;
  server 127.0.0.1:8082 backup;
@@ -71,7 +71,7 @@ server {
 ### NGINX балансировка
 
 Конфигурация nginx:
-```json
+```
 proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:32m max_size=1g;
 
 server {
