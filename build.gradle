@@ -32,7 +32,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-logging"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-hateoas"
-    
+
     implementation "org.postgresql:postgresql"
 
     implementation "org.springdoc:springdoc-openapi-webmvc-core:${openApiVersion}"
@@ -44,7 +44,6 @@ dependencies {
     implementation "org.glassfish.jaxb:jaxb-runtime"
 
     compileOnly "com.google.code.findbugs:jsr305:${findBugsVersion}"
-    implementation "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 

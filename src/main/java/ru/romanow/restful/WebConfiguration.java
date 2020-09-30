@@ -2,14 +2,12 @@ package ru.romanow.restful;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
+@EnableWebMvc
 public class WebConfiguration
-        extends WebMvcConfigurationSupport {
+        implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
@@ -19,7 +17,7 @@ public class WebConfiguration
     }
 
     @Override
-    protected void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api-docs");
     }
 }

@@ -2,6 +2,7 @@ package ru.romanow.restful.model.hateoas;
 
 import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
+import ru.romanow.restful.domain.State;
 import ru.romanow.restful.model.api.StateResponse;
 import ru.romanow.restful.web.HateoasStateRestController;
 
@@ -12,13 +13,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @Getter
-public class StateResource
-        extends RepresentationModel<StateResource> {
-    private final StateResponse response;
+public class StateModel
+        extends RepresentationModel<StateModel> {
+    private final Integer id;
+    private final String city;
+    private final String country;
 
-    public StateResource(@Nonnull StateResponse state) {
-        this.response = state;
-        add(linkTo(methodOn(HateoasStateRestController.class).getState(response.getId())).withSelfRel());
-        add(linkTo(methodOn(HateoasStateRestController.class).getStates()).withRel("states"));
+    public StateModel(@Nonnull StateResponse state) {
+        this.id = state.getId();
+        this.city = state.getCity();
+        this.country = state.getCountry();
     }
 }
