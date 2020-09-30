@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.romanow.restful.domain.State;
-import ru.romanow.restful.model.StateRequest;
-import ru.romanow.restful.model.StateResponse;
+import ru.romanow.restful.model.api.StateRequest;
+import ru.romanow.restful.model.api.StateResponse;
 import ru.romanow.restful.repository.StateRepository;
 
 import javax.annotation.Nonnull;

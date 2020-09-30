@@ -1,11 +1,9 @@
 plugins {
     id "java"
     id "idea"
-    id "org.springframework.boot" version "2.1.7.RELEASE"
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "org.springframework.boot" version "2.3.0.RELEASE"
+    id "io.spring.dependency-management" version "1.0.10.RELEASE"
 }
-
-apply from: 'libraries.gradle'
 
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
@@ -15,6 +13,13 @@ idea {
         downloadJavadoc = true
         downloadSources = true
     }
+}
+
+ext {
+    guavaVersion = "20.0"
+    openApiVersion = "1.4.5"
+    lombokVersion = "1.18.2"
+    findBugsVersion = "3.0.2"
 }
 
 repositories {
@@ -29,14 +34,12 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-hateoas"
     
     implementation "org.postgresql:postgresql"
-    implementation "org.flywaydb:flyway-core"
 
-    implementation "io.swagger:swagger-annotations:${swaggerVersion}"
-    implementation "io.springfox:springfox-swagger2:${swaggerSpringVersion}"
+    implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
+    implementation "org.springdoc:springdoc-openapi-kotlin:${openApiVersion}"
 
     implementation "com.google.guava:guava:${guavaVersion}"
     implementation "com.google.code.gson:gson"
-    implementation "org.postgresql:postgresql"
     implementation "org.apache.commons:commons-lang3"
     implementation "javax.xml.bind:jaxb-api"
     implementation "org.glassfish.jaxb:jaxb-runtime"

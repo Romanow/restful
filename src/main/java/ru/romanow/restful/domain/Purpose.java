@@ -11,6 +11,6 @@ public enum Purpose {
         return Stream.of(Purpose.values())
                      .filter(p -> p.name().equals(purpose))
                      .findFirst()
-                     .orElseGet(null);
+                     .orElseThrow(IllegalArgumentException::new);
     }
 }

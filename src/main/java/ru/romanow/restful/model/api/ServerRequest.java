@@ -1,4 +1,4 @@
-package ru.romanow.restful.model;
+package ru.romanow.restful.model.api;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

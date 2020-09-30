@@ -1,15 +1,16 @@
-package ru.romanow.restful.model;
+package ru.romanow.restful.model.hateoas;
 
 import lombok.Getter;
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
+import ru.romanow.restful.model.api.ServerResponse;
 import ru.romanow.restful.web.HateoasServerRestController;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Getter
 public class ServerResource
-        extends ResourceSupport {
+        extends RepresentationModel<ServerResource> {
     private final ServerResponse response;
 
     public ServerResource(ServerResponse response) {

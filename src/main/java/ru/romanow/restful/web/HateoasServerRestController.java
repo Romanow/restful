@@ -1,14 +1,13 @@
 package ru.romanow.restful.web;
 
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.romanow.restful.model.ServerListResource;
-import ru.romanow.restful.model.ServerResource;
-import ru.romanow.restful.model.StateResource;
+import ru.romanow.restful.model.hateoas.ServerListResource;
+import ru.romanow.restful.model.hateoas.ServerResource;
+import ru.romanow.restful.model.hateoas.StateResource;
 import ru.romanow.restful.service.ServerService;
 
 @RestController
@@ -18,7 +17,7 @@ public class HateoasServerRestController {
     private final ServerService serverService;
 
     @GetMapping("/{id}")
-    public ServerResource getServer(@ApiParam @PathVariable Integer id) {
+    public ServerResource getServer(@PathVariable Integer id) {
         return new ServerResource(serverService.getServerById(id));
     }
 

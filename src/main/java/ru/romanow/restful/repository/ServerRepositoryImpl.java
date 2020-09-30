@@ -1,9 +1,6 @@
 package ru.romanow.restful.repository;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import ru.romanow.restful.domain.Server;
-import ru.romanow.restful.model.ServerResponse;
 
 import javax.annotation.Nonnull;
 import javax.persistence.EntityManager;

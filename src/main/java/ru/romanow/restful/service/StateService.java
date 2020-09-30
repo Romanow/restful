@@ -1,8 +1,8 @@
 package ru.romanow.restful.service;
 
 import ru.romanow.restful.domain.State;
-import ru.romanow.restful.model.StateRequest;
-import ru.romanow.restful.model.StateResponse;
+import ru.romanow.restful.model.api.StateRequest;
+import ru.romanow.restful.model.api.StateResponse;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
